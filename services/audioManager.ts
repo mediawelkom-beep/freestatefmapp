@@ -32,10 +32,10 @@ export class AudioManager {
         
         this.analyser = this.audioContext.createAnalyser();
         this.analyser.fftSize = 256;
-        this.analyser.smoothingTimeConstant = 0.8;
+        this.analyser.smoothingTimeConstant = 0.6; // More responsive
 
         this.mainGain = this.audioContext.createGain();
-        this.mainGain.gain.value = 1.0;
+        this.mainGain.gain.value = 0.85; // Give some headroom to avoid distortion
         
         this.mainGain.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);

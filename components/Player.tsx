@@ -9,6 +9,7 @@ import { BROADCAST_SCHEDULE } from '../constants';
 interface PlayerProps {
   currentSegment: RadioSegment | null | undefined;
   isPlaying: boolean;
+  isLoading?: boolean;
   onTogglePlay: () => void;
   onSkip: () => void;
   onExit: () => void;
@@ -44,7 +45,7 @@ const DigitalClock: React.FC = () => {
   );
 };
 
-const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, onTogglePlay, onExit }) => {
+const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, onTogglePlay, onExit }) => {
   const [showSchedule, setShowSchedule] = useState(false);
   
   const getCurrentShow = () => {
@@ -199,23 +200,36 @@ const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, onTogglePlay
 
             <motion.button 
               onClick={onTogglePlay} 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              disabled={isLoading}
+              whileHover={{ scale: isLoading ? 1 : 1.05 }}
+              whileTap={{ scale: isLoading ? 1 : 0.95 }}
               animate={{ 
                 boxShadow: isPlaying ? "0 0 20px rgba(225, 29, 72, 0.3)" : "0 8px 15px rgba(225, 29, 72, 0.1)"
               }}
-              className="group relative w-24 h-24 rounded-2xl bg-brand-red text-white flex items-center justify-center hover:bg-black transition-all mb-6"
+              className={`group relative w-24 h-24 rounded-2xl bg-brand-red text-white flex items-center justify-center hover:bg-black transition-all mb-6 ${isLoading ? 'opacity-80 cursor-wait' : ''}`}
             >
                 <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isPlaying ? 'pause' : 'play'}
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.8, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isPlaying ? <Pause className="w-10 h-10 fill-current" /> : <Play className="w-10 h-10 fill-current ml-1" />}
-                  </motion.div>
+                  {isLoading ? (
+                    <motion.div
+                      key="loading"
+                      initial={{ opacity: 0, rotate: 0 }}
+                      animate={{ opacity: 1, rotate: 360 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    >
+                      <Radio className="w-10 h-10" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={isPlaying ? 'pause' : 'play'}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {isPlaying ? <Pause className="w-10 h-10 fill-current" /> : <Play className="w-10 h-10 fill-current ml-1" />}
+                    </motion.div>
+                  )}
                 </AnimatePresence>
             </motion.button>
             <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300">

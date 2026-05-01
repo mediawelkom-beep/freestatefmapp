@@ -24,6 +24,7 @@ const App: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('HOME');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLivePlaying, setIsLivePlaying] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   
   const liveAudioRef = useRef<HTMLAudioElement | null>(null);
   const isCancelledRef = useRef(false);
@@ -171,6 +172,7 @@ const App: React.FC = () => {
         console.log("Live Stream: Ready to play. useWebAudio:", useWebAudioRef.current);
         setAppState(AppState.PLAYING);
         setIsLivePlaying(true);
+        setIsConnecting(false);
         
         // Reset retry count on success
         retryCountRef.current = 0;
@@ -212,7 +214,8 @@ const App: React.FC = () => {
     // CRITICAL: Resume context in the direct call stack of the user gesture
     await audioManager.forceUnlock();
 
-    setAppState(AppState.GENERATING); // Buffering/Connecting
+    setAppState(AppState.PLAYING); 
+    setIsConnecting(true);
     setViewMode('HOME');
     isCancelledRef.current = false;
     retryCountRef.current = 0;
@@ -259,6 +262,7 @@ const App: React.FC = () => {
           try { liveAudioRef.current.load(); } catch(e) {}
       }
       setIsLivePlaying(false);
+      setIsConnecting(false);
       setAppState(AppState.SETUP);
       setViewMode('HOME'); 
   };
@@ -462,22 +466,6 @@ const App: React.FC = () => {
               </section>
             )}
 
-            {appState === AppState.GENERATING && (
-              <div className="fixed inset-0 z-[110] bg-white flex flex-col items-center justify-center p-8 text-center animate-in fade-in duration-500">
-                 <div className="relative w-32 h-32 flex items-center justify-center mb-12">
-                   <div className="absolute inset-0 border-4 border-slate-100 rounded-full"></div>
-                   <div className="absolute inset-0 border-4 border-transparent border-t-brand-red rounded-full animate-spin"></div>
-                   <Radio className="w-10 h-10 text-brand-red animate-pulse" />
-                 </div>
-                 <div className="space-y-4">
-                    <h2 className="text-5xl font-display font-extrabold uppercase tracking-tight text-brand-dark italic">Connecting</h2>
-                    <p className="text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px]">
-                      Establishing Secure Direct Broadcast Link
-                    </p>
-                 </div>
-              </div>
-            )}
-
             {(appState === AppState.PLAYING || appState === AppState.PAUSED) && (
               <div className="fixed inset-0 z-[120] bg-brand-dark/40 backdrop-blur-md flex items-center justify-center p-0 md:p-8 animate-in zoom-in-95 duration-500">
                 <motion.div 
@@ -487,7 +475,8 @@ const App: React.FC = () => {
                 >
                    <Player 
                       currentSegment={currentPlayerSegment}
-                      isPlaying={appState === AppState.PLAYING}
+                      isPlaying={isLivePlaying}
+                      isLoading={isConnecting}
                       onTogglePlay={handleTogglePlay}
                       onSkip={() => {}}
                       onExit={handleExit}
