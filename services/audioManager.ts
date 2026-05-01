@@ -31,11 +31,11 @@ export class AudioManager {
         }
         
         this.analyser = this.audioContext.createAnalyser();
-        this.analyser.fftSize = 256;
-        this.analyser.smoothingTimeConstant = 0.6; // More responsive
+        this.analyser.fftSize = 512; // Slightly larger for smoother data
+        this.analyser.smoothingTimeConstant = 0.75; // More stable
 
         this.mainGain = this.audioContext.createGain();
-        this.mainGain.gain.value = 0.85; // Give some headroom to avoid distortion
+        this.mainGain.gain.value = 0.75; // More headroom to avoid distortion/clipping
         
         this.mainGain.connect(this.analyser);
         this.analyser.connect(this.audioContext.destination);
