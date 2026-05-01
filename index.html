@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free State FM Digital Radio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                red: '#e11d48',
+                accent: '#0f172a',
+                highlight: '#e11d48',
+                bg: '#ffffff',
+                card: '#f8fafc',
+                border: '#e2e8f0',
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glow': 'glow 2s ease-in-out infinite alternate',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              glow: {
+                'from': { 'box-shadow': '0 0 5px #22d3ee, 0 0 10px #22d3ee' },
+                'to': { 'box-shadow': '0 0 20px #22d3ee, 0 0 30px #22d3ee' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+      
+      body {
+        background: #ffffff;
+        color: #0f172a;
+        font-family: 'Inter', sans-serif;
+      }
+
+      h1, h2, h3, .font-display {
+        font-family: 'Outfit', sans-serif;
+      }
+      
+      .glass {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+      }
+      
+      .red-glow {
+        box-shadow: 0 0 15px rgba(225, 29, 72, 0.2);
+      }
+
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      /* Global spinning animation fix for the vinyl record */
+      @keyframes spin-custom {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      .animate-spin-custom {
+        animation: spin-custom 12s linear infinite;
+      }
+
+      .red-glow:hover {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #374151;
+        border-radius: 10px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
