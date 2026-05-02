@@ -19,3 +19,10 @@ export enum AppState {
   PAUSED = 'PAUSED',
   ERROR = 'ERROR'
 }
+
+export interface BroadcastShow {
+  time: string;
+  show: string;
+  dj: string;
+  days: number[];
+}

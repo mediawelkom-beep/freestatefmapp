@@ -8,7 +8,7 @@ export const AboutUs: React.FC = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div className="space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-red/5 text-brand-red text-[10px] font-bold tracking-widest uppercase rounded-md">
-          Established 1994
+          Established 2016
         </div>
         <h2 className="text-4xl md:text-5xl font-display font-extrabold uppercase tracking-tight text-brand-dark leading-tight">Our<br /><span className="text-brand-red">Legacy.</span></h2>
         <div className="text-slate-500 space-y-4 leading-relaxed font-medium">
@@ -26,7 +26,8 @@ export const AboutUs: React.FC = () => (
       <div className="relative group">
         <div className="absolute inset-x-4 -bottom-4 h-full bg-brand-red/10 rounded-[2.5rem] -z-10 group-hover:bg-brand-red/20 transition-colors" />
         <div className="rounded-[2.5rem] overflow-hidden shadow-2xl aspect-video lg:aspect-square border border-slate-100">
-          <img src="https://images.unsplash.com/photo-1558403194-611308249627?q=80&w=2070&auto=format&fit=crop" alt="The Studio" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2070&auto=format&fit=crop" alt="Free State FM Broadcast Team" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 contrast-[1.05]" />
+          <div className="absolute inset-0 bg-linear-to-t from-brand-dark/40 to-transparent pointer-events-none" />
         </div>
       </div>
     </div>

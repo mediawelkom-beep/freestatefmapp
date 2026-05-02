@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { RadioSegment, SegmentType } from '../types';
 import Visualizer from './Visualizer';
+import Logo from './Logo';
 import { Pause, Play, SkipForward, Radio, Music, Sparkles, Activity, X, Calendar, Clock as ClockIcon, Globe, ChevronUp, ChevronDown, User, Share2, Download } from 'lucide-react';
 import { BROADCAST_SCHEDULE, APP_NAME } from '../constants';
 
@@ -122,6 +123,21 @@ const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, o
 
   const currentShow = getCurrentShow();
 
+  const formatGmt2Time = (date: Date) => {
+    return date.toLocaleTimeString('en-ZA', { 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      hour12: false,
+      timeZone: 'Africa/Johannesburg' 
+    }) + ' GMT+2';
+  };
+
+  const [timeNow, setTimeNow] = useState(new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setTimeNow(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
+
   if (!currentSegment) return null;
 
   return (
@@ -201,6 +217,10 @@ const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, o
                     <Visualizer isActive={isPlaying} type={currentSegment.type} />
                 </div>
 
+                <div className="animate-in fade-in zoom-in duration-1000 delay-300">
+                    <Logo className="items-center" />
+                </div>
+
                 <div className="text-center space-y-6 w-full">
                   <div className="p-4 bg-brand-red/5 border border-brand-red/10 rounded-2xl inline-flex flex-col items-center mb-2">
                     <p className="text-[9px] font-bold text-brand-red uppercase tracking-[0.3em] mb-1">On Air Now</p>
@@ -224,7 +244,9 @@ const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, o
                       {currentSegment.artist && currentSegment.artist !== "LIVE_CLOCK_SIGNAL" ? (
                         <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mt-2">{currentSegment.artist}</p>
                       ) : (
-                        <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mt-2">{currentShow.dj}</p>
+                        <p className="text-slate-400 font-bold uppercase tracking-widest text-[11px] mt-2">
+                          {formatGmt2Time(timeNow)} <span className="opacity-40 mx-2">|</span> {currentShow.dj}
+                        </p>
                       )}
                     </motion.div>
                   </AnimatePresence>

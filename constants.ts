@@ -17,5 +17,5 @@ export const BROADCAST_SCHEDULE = [
   // Sunday
   { time: "15:00 - 18:00", show: "Sunday Soul Serenade", dj: "Patrick Tsolo", days: [0] },
   // Default for all other times
-  { time: "00:00 - 24:00", show: "Music Train", dj: "24/7 Digital Radio", days: [0,1,2,3,4,5,6] },
+  { time: "00:00 - 24:00", show: "YOUR REFRESHING MUSIC MIX", dj: "PATRICK TSOLO", days: [0,1,2,3,4,5,6] },
 ];

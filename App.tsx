@@ -307,7 +307,11 @@ const App: React.FC = () => {
             </nav>
           </div>
           <div className="flex items-center gap-6">
-            <NowPlayingWidget currentSegment={currentPlayerSegment} className="hidden md:flex" />
+            <NowPlayingWidget 
+              currentSegment={currentPlayerSegment} 
+              currentShow={currentShow}
+              className="hidden md:flex" 
+            />
             <div className="flex items-center gap-4">
             <motion.button 
               onClick={toggleLiveStream} 
@@ -439,8 +443,8 @@ const App: React.FC = () => {
                       Welcome to Free State FM
                   </div>
                   <h1 className="text-5xl md:text-[5rem] lg:text-[6.5rem] font-display font-extrabold uppercase tracking-tight leading-[0.85] text-brand-dark">
-                    Connecting you<br />
-                    with the <span className="text-brand-red">stars.</span>
+                    YOUR REFRESHING<br />
+                    MUSIC <span className="text-brand-red">MIX.</span>
                   </h1>
                   <p className="text-slate-500 text-lg md:text-xl font-medium max-w-xl mx-auto lg:mx-0 text-balance leading-relaxed">
                     Regional hits, soul serenade, and crystal-clear digital audio. Experience the evolution of radio across the Free State and beyond.
@@ -479,9 +483,9 @@ const App: React.FC = () => {
                 <div className="flex-1 w-full relative">
                   <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl group">
                     <img 
-                      src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop" 
-                      alt="Modern Radio Studio" 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                      src="/src/assets/images/regenerated_image_1777710824946.jpg" 
+                      alt="Free State FM Live" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 contrast-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
