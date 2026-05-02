@@ -9,7 +9,7 @@ import Logo from './components/Logo';
 import NowPlayingWidget from './components/NowPlayingWidget';
 import { AboutUs, ContactUs, Advertise } from './components/InfoPages';
 import { CONTACT_INFO, LIVE_STREAM_URL, BROADCAST_SCHEDULE } from './constants';
-import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe, Facebook, Instagram } from 'lucide-react';
+import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe, Facebook, Instagram, Download } from 'lucide-react';
 
 type ViewMode = 'HOME' | 'ABOUT' | 'CONTACT' | 'ADVERTISE';
 
@@ -26,11 +26,32 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLivePlaying, setIsLivePlaying] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   
   const liveAudioRef = useRef<HTMLAudioElement | null>(null);
   const isCancelledRef = useRef(false);
   const retryCountRef = useRef(0);
   const useWebAudioRef = useRef(true);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+    setIsMenuOpen(false);
+  };
 
   const getCurrentShow = () => {
     const now = new Date();
@@ -365,6 +386,19 @@ const App: React.FC = () => {
                     <div className={`w-1.5 h-1.5 rounded-full ${viewMode === item.mode ? 'bg-white' : 'bg-transparent'}`} />
                   </button>
                 ))}
+
+                {deferredPrompt && (
+                  <button 
+                    onClick={handleInstallClick}
+                    className="flex items-center justify-between p-4 mt-2 rounded-xl text-sm font-bold uppercase tracking-widest transition-all bg-slate-900 text-white hover:bg-brand-red"
+                  >
+                    <div className="flex items-center gap-4">
+                      <Download className="w-5 h-5 text-brand-red group-hover:text-white" /> 
+                      Install App
+                    </div>
+                    <div className="text-[10px] bg-brand-red px-2 py-0.5 rounded-full">New</div>
+                  </button>
+                )}
               </div>
 
               <div className="mt-auto space-y-8">
@@ -508,6 +542,12 @@ const App: React.FC = () => {
               <button onClick={() => setViewMode('ABOUT')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">About</button>
               <button onClick={() => setViewMode('ADVERTISE')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">Advertise</button>
               <button onClick={() => setViewMode('CONTACT')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">Contact</button>
+              {deferredPrompt && (
+                <button onClick={handleInstallClick} className="text-[10px] font-bold uppercase tracking-widest text-brand-red hover:text-black transition-colors flex items-center gap-1.5">
+                  <Download className="w-3 h-3" />
+                  Install App
+                </button>
+              )}
             </nav>
 
             <div className="flex items-center gap-6">
