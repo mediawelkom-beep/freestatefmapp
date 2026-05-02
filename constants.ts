@@ -11,7 +11,7 @@ export const CONTACT_INFO = {
 };
 
 // Live stream source
-export const LIVE_STREAM_URL = "http://cassini.shoutca.st:8670/stream";
+export const LIVE_STREAM_URL = "https://live.freestatefm.co.za/stream";
 
 export const BROADCAST_SCHEDULE = [
   // Sunday

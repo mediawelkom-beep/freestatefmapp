@@ -1,0 +1,22 @@
+{
+  "name": "Free State FM",
+  "short_name": "FreeStateFM",
+  "description": "Digital Radio for the Free State",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e11d48",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=192&h=192&auto=format&fit=crop",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=512&h=512&auto=format&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

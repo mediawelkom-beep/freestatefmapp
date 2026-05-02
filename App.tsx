@@ -6,6 +6,7 @@ import { audioManager } from './services/audioManager';
 import Player from './components/Player';
 import BackgroundVisualizer from './components/BackgroundVisualizer';
 import Logo from './components/Logo';
+import NowPlayingWidget from './components/NowPlayingWidget';
 import { AboutUs, ContactUs, Advertise } from './components/InfoPages';
 import { LIVE_STREAM_URL, BROADCAST_SCHEDULE } from './constants';
 import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe } from 'lucide-react';
@@ -284,7 +285,9 @@ const App: React.FC = () => {
               <button onClick={() => setViewMode('CONTACT')} className={`text-[11px] font-bold uppercase tracking-[0.25em] transition-colors ${viewMode === 'CONTACT' ? 'text-brand-red' : 'text-slate-400 hover:text-brand-red'}`}>Contact</button>
             </nav>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
+            <NowPlayingWidget currentSegment={currentPlayerSegment} className="hidden md:flex" />
+            <div className="flex items-center gap-4">
             <motion.button 
               onClick={toggleLiveStream} 
               animate={{ 
@@ -307,6 +310,7 @@ const App: React.FC = () => {
             </button>
           </div>
         </div>
+      </div>
       </header>
 
       <AnimatePresence>

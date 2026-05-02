@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { RadioSegment, SegmentType } from '../types';
 import Visualizer from './Visualizer';
-import { Pause, Play, SkipForward, Radio, Music, Sparkles, Activity, X, Calendar, Clock as ClockIcon, Globe, ChevronUp, ChevronDown, User } from 'lucide-react';
-import { BROADCAST_SCHEDULE } from '../constants';
+import { Pause, Play, SkipForward, Radio, Music, Sparkles, Activity, X, Calendar, Clock as ClockIcon, Globe, ChevronUp, ChevronDown, User, Share2, Download } from 'lucide-react';
+import { BROADCAST_SCHEDULE, APP_NAME } from '../constants';
 
 interface PlayerProps {
   currentSegment: RadioSegment | null | undefined;
@@ -47,7 +47,55 @@ const DigitalClock: React.FC = () => {
 
 const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, onTogglePlay, onExit }) => {
   const [showSchedule, setShowSchedule] = useState(false);
-  
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [canInstall, setCanInstall] = useState(false);
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setCanInstall(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+    
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setCanInstall(false);
+    }
+
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setCanInstall(false);
+    }
+    setDeferredPrompt(null);
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: APP_NAME,
+      text: `Listen to ${APP_NAME} Live - Digital Radio for the Free State`,
+      url: window.location.origin
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.origin);
+        alert('Link copied to clipboard!');
+      }
+    } catch (err) {
+      console.log('Error sharing:', err);
+    }
+  };
+
   const getCurrentShow = () => {
     const now = new Date();
     const currentHour = now.getHours();
@@ -232,8 +280,26 @@ const Player: React.FC<PlayerProps> = ({ currentSegment, isPlaying, isLoading, o
                   )}
                 </AnimatePresence>
             </motion.button>
-            <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300">
+            <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-300 mb-8">
               <Activity className="w-4 h-4" /> Signal Integrity 99.8%
+            </div>
+
+            <div className="flex items-center gap-4">
+               <button 
+                onClick={handleShare}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 text-slate-500 hover:text-brand-red hover:bg-brand-red/5 transition-all text-[10px] font-bold uppercase tracking-widest"
+               >
+                 <Share2 className="w-3.5 h-3.5" /> Share
+               </button>
+               
+               {canInstall && (
+                 <button 
+                  onClick={handleInstall}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-red text-white hover:bg-black transition-all text-[10px] font-bold uppercase tracking-widest animate-pulse"
+                 >
+                   <Download className="w-3.5 h-3.5" /> Install App
+                 </button>
+               )}
             </div>
         </div>
     </div>
