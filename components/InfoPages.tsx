@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, Facebook, Instagram, Send, CheckCircle2, Globe, Radio, Headphones, Activity, Zap } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
+import legacyImage from '../src/assets/images/regenerated_image_1777710824946.jpg';
 
 export const AboutUs: React.FC = () => (
   <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -26,7 +27,7 @@ export const AboutUs: React.FC = () => (
       <div className="relative group">
         <div className="absolute inset-x-4 -bottom-4 h-full bg-brand-red/10 rounded-[2.5rem] -z-10 group-hover:bg-brand-red/20 transition-colors" />
         <div className="rounded-[2.5rem] overflow-hidden shadow-2xl aspect-video lg:aspect-square border border-slate-100">
-          <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2070&auto=format&fit=crop" alt="Free State FM Broadcast Team" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 contrast-[1.05]" />
+          <img src={legacyImage} alt="Free State FM Broadcast Team" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 contrast-[1.05]" />
           <div className="absolute inset-0 bg-linear-to-t from-brand-dark/40 to-transparent pointer-events-none" />
         </div>
       </div>

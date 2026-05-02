@@ -11,6 +11,10 @@ import { AboutUs, ContactUs, Advertise } from './components/InfoPages';
 import { CONTACT_INFO, LIVE_STREAM_URL, BROADCAST_SCHEDULE } from './constants';
 import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe, Facebook, Instagram, Download } from 'lucide-react';
 
+// Selected images
+import heroImage from './src/assets/images/regenerated_image_1777712128627.jpg';
+import listenerImage from './src/assets/images/regenerated_image_1777710584290.jpg';
+
 type ViewMode = 'HOME' | 'ABOUT' | 'CONTACT' | 'ADVERTISE';
 
 const LIVE_SEGMENT: RadioSegment = {
@@ -468,7 +472,7 @@ const App: React.FC = () => {
                       <div className="flex -space-x-3">
                          {[1,2,3,4].map(i => (
                            <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
-                             <img src={`https://i.pravatar.cc/100?u=${i}`} alt="listener" className="w-full h-full object-cover" />
+                             <img src={listenerImage} alt="listener" className="w-full h-full object-cover" />
                            </div>
                          ))}
                       </div>
@@ -483,12 +487,11 @@ const App: React.FC = () => {
                 <div className="flex-1 w-full relative">
                   <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl group">
                     <img 
-                      src="/src/assets/images/regenerated_image_1777710824946.jpg" 
+                      src={heroImage} 
                       alt="Free State FM Live" 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 contrast-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
                   </div>
                   
                   {/* Decorative Elements */}

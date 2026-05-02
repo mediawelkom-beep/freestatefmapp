@@ -2,6 +2,7 @@ import React from 'react';
 import { RadioSegment, SegmentType, BroadcastShow } from '../types';
 import { Music, Radio } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import hostImage from '../src/assets/images/regenerated_image_1777710584290.jpg';
 
 interface NowPlayingWidgetProps {
   currentSegment: RadioSegment | null | undefined;
@@ -34,7 +35,7 @@ const NowPlayingWidget: React.FC<NowPlayingWidgetProps> = ({ currentSegment, cur
     <div className={`flex items-center gap-3 px-3 py-1.5 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm ${className}`}>
       <div className="relative w-8 h-8 rounded-full overflow-hidden border border-brand-red/30 shadow-sm">
         <img 
-          src="https://images.unsplash.com/photo-1558403194-611308249627?q=80&w=2070&auto=format&fit=crop" 
+          src={hostImage} 
           alt="Host" 
           className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
         />
