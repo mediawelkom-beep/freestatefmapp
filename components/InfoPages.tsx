@@ -162,6 +162,11 @@ export const Advertise: React.FC = () => {
           </div>
 
           <div className="space-y-2">
+            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Phone Number</label>
+            <input required type="tel" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-red focus:bg-white outline-none transition-all text-sm font-medium" placeholder="+27 00 000 0000" />
+          </div>
+
+          <div className="space-y-2">
             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Mission Specs (Message)</label>
             <textarea required rows={3} className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-red focus:bg-white outline-none transition-all text-sm resize-none font-medium" placeholder="Describe your objectives..."></textarea>
           </div>
