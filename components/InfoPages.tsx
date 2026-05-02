@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, Facebook, Instagram, Send, CheckCircle2, Globe, Radio, Headphones, Activity, Zap } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
-import legacyImage from '../src/assets/images/regenerated_image_1777710824946.jpg';
+import legacyImage from '@/src/assets/about.jpg';
 
 export const AboutUs: React.FC = () => (
   <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
