@@ -8,8 +8,8 @@ import BackgroundVisualizer from './components/BackgroundVisualizer';
 import Logo from './components/Logo';
 import NowPlayingWidget from './components/NowPlayingWidget';
 import { AboutUs, ContactUs, Advertise } from './components/InfoPages';
-import { LIVE_STREAM_URL, BROADCAST_SCHEDULE } from './constants';
-import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe } from 'lucide-react';
+import { CONTACT_INFO, LIVE_STREAM_URL, BROADCAST_SCHEDULE } from './constants';
+import { Play, Pause, Zap, Calendar, Clock, Menu, X, Activity, Headphones, Radio, Volume2, Globe, Facebook, Instagram } from 'lucide-react';
 
 type ViewMode = 'HOME' | 'ABOUT' | 'CONTACT' | 'ADVERTISE';
 
@@ -450,17 +450,7 @@ const App: React.FC = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-8 left-8 right-8 p-6 glass rounded-2xl border-white/20">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                          <Volume2 className="w-6 h-6 text-brand-red" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold uppercase tracking-widest text-brand-red mb-0.5">Live Stream</p>
-                          <p className="text-sm font-bold text-brand-dark">High Quality Digital Signal</p>
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
                   
                   {/* Decorative Elements */}
@@ -505,14 +495,40 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="w-full py-16 border-t border-brand-border bg-brand-bg/40">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12 opacity-60">
-           <Logo className="grayscale brightness-200" />
-           <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-500">© 2026 Free State FM • Digital Radio</p>
-           <div className="flex gap-8 text-slate-500">
-              <Clock className="w-5 h-5 hover:text-brand-accent transition-colors" />
-              <Calendar className="w-5 h-5 hover:text-brand-accent transition-colors" />
-           </div>
+      <footer className="w-full py-16 border-t border-brand-border bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-12">
+            <Logo 
+              onClick={() => { setViewMode('HOME'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+              className="cursor-pointer grayscale hover:grayscale-0 transition-all" 
+            />
+            
+            <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+              <button onClick={() => setViewMode('HOME')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">Home</button>
+              <button onClick={() => setViewMode('ABOUT')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">About</button>
+              <button onClick={() => setViewMode('ADVERTISE')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">Advertise</button>
+              <button onClick={() => setViewMode('CONTACT')} className="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-brand-red transition-colors">Contact</button>
+            </nav>
+
+            <div className="flex items-center gap-6">
+              <a href={CONTACT_INFO.social.facebook} target="_blank" rel="noopener noreferrer" className="p-3 bg-white border border-slate-200 rounded-full text-slate-400 hover:text-brand-red hover:border-brand-red transition-all shadow-sm">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href={CONTACT_INFO.social.instagram} target="_blank" rel="noopener noreferrer" className="p-3 bg-white border border-slate-200 rounded-full text-slate-400 hover:text-brand-red hover:border-brand-red transition-all shadow-sm">
+                <Instagram className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8 border-t border-slate-200 opacity-60">
+            <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-500">
+              © {new Date().getFullYear()} Free State FM • Digital Broadcast Network
+            </p>
+            <div className="flex gap-4 items-center text-[10px] font-bold uppercase tracking-widest text-slate-400">
+              <Activity className="w-3.5 h-3.5 text-brand-red" />
+              Status: Operational
+            </div>
+          </div>
         </div>
       </footer>
     </div>
