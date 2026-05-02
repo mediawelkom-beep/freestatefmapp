@@ -28,24 +28,14 @@ export default defineConfig(({ mode }) => {
               {
                 src: 'icon.svg',
                 sizes: '192x192 512x512',
-                type: 'image/svg+xml'
-              },
-              {
-                src: 'icon.svg',
-                sizes: '512x512',
-                type: 'image/png',
+                type: 'image/svg+xml',
                 purpose: 'any'
               },
               {
                 src: 'maskable-icon.svg',
-                sizes: '512x512',
+                sizes: '192x192 512x512',
                 type: 'image/svg+xml',
                 purpose: 'maskable'
-              },
-              {
-                src: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=512&h=512&auto=format&fit=crop',
-                sizes: '512x512',
-                type: 'image/png'
               }
             ]
           },

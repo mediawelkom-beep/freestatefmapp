@@ -1,5 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#e11d48"/>
-  <circle cx="256" cy="256" r="150" fill="white" fill-opacity="0.2"/>
-  <path d="M256 150c-58.5 0-106 47.5-106 106s47.5 106 106 106 106-47.5 106-106-47.5-106-106-106zm0 180c-40.9 0-74-33.1-74-74s33.1-74 74-74 74 33.1 74 74-33.1 74-74 74z" fill="white"/>
+  <defs>
+    <linearGradient id="bg-grad-mask" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b" />
+      <stop offset="100%" style="stop-color:#020617" />
+    </linearGradient>
+    <linearGradient id="mic-body-mask" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff" />
+      <stop offset="100%" style="stop-color:#cbd5e1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Full Background for Maskable -->
+  <rect width="512" height="512" fill="url(#bg-grad-mask)" />
+  
+  <!-- Centered Content within Safe Area -->
+  <g transform="translate(256, 256) scale(0.85)">
+    <g transform="translate(-256, -256)">
+       <!-- Microphone Icon Group -->
+      <g transform="translate(256, 200) scale(12)">
+        <g transform="translate(-12, -12)">
+          <!-- Mic Head -->
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" fill="url(#mic-body-mask)" stroke="#e11d48" stroke-width="0.5" />
+          
+          <!-- Stand -->
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="white" stroke-width="1.2" stroke-linecap="round" />
+          <line x1="12" y1="19" x2="12" y2="22" stroke="white" stroke-width="1.2" stroke-linecap="round" />
+          <line x1="8" y1="22" x2="16" y2="22" stroke="white" stroke-width="1.2" stroke-linecap="round" />
+        </g>
+      </g>
+
+      <!-- Text Branding -->
+      <g transform="translate(256, 420)">
+        <text text-anchor="middle" font-family="system-ui, sans-serif" font-weight="900" font-size="48" letter-spacing="-1">
+          <tspan fill="white">FREE STATE </tspan>
+          <tspan fill="#e11d48">FM</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
 </svg>
