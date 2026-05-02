@@ -8,16 +8,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Free State FM" />
-    <link rel="manifest" href="/manifest.json" />
     <title>Free State FM Digital Radio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
-        });
-      }
-    </script>
     <script>
       tailwind.config = {
         theme: {
